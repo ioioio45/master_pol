@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.master_pol_ennDataSet = new master_pol_enn.master_pol_ennDataSet();
             this.masterpolennDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.materialtypeimportBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -39,11 +40,13 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button_partners_list = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.master_pol_ennDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.masterpolennDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.materialtypeimportBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // master_pol_ennDataSet
@@ -75,6 +78,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button_partners_list);
@@ -90,8 +94,9 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(151, 32);
             this.button3.TabIndex = 2;
-            this.button3.Text = "button3";
+            this.button3.Text = "История";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -111,6 +116,7 @@
             this.button_partners_list.TabIndex = 0;
             this.button_partners_list.Text = "Список Партнеров";
             this.button_partners_list.UseVisualStyleBackColor = true;
+            this.button_partners_list.Click += new System.EventHandler(this.button_partners_list_Click);
             // 
             // panel2
             // 
@@ -120,6 +126,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(644, 450);
             this.panel2.TabIndex = 2;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(67, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(77, 77);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
@@ -137,6 +153,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.materialtypeimportBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -152,6 +169,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button_partners_list;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

@@ -17,13 +17,17 @@ namespace master_pol_enn
         DataSet ds, localDs;
         StringBuilder sb = new StringBuilder();
         List<string> list = new List<string>();
+        string connectionString;
         int pointY = 50;
-        string connectionString = @"Data Source=DESKTOP-DE\LAB7PC7;Initial Catalog=master_pol_enn;Integrated Security=True";
         public PartnersForm()
         {
             InitializeComponent();
         }
-
+        public PartnersForm(string cS)
+        {
+            InitializeComponent();
+            connectionString = cS;
+        }
         private void PartnersForm_Load(object sender, EventArgs e)
         {
             this.BackColor = Color.White;

@@ -15,23 +15,20 @@ namespace master_pol_enn
     {
         SqlDataAdapter adapter;
         DataSet ds;
-        
-        string connectionString = "Data Source=DESKTOP-DE\\LAB7PC7;Initial Catalog=master_pol_enn;Integrated Security=True";
+
+        string connectionString;
         public ListOfPartners()
         {
             InitializeComponent();
         }
-
+        public ListOfPartners(string cS)
+        {
+            InitializeComponent();
+            connectionString = cS;
+        }
         private void ListOfPartners_Load(object sender, EventArgs e)
         {
-            using(SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string sql = "SELECT [Наименование партнера], Partners_type.[Тип партнера], Рейтинг, [Юридический адрес партнера], Директор, [Телефон партнера], [Электронная почта партнера] FROM Partners INNER JOIN Partners_type ON Partners.id_partners_type = Partners_type.id_partners_type";
-                adapter = new SqlDataAdapter(sql, conn);
-                ds = new DataSet();
-                adapter.Fill(ds);
-                dataGridView1.DataSource = ds.Tables[0];
-            }
+            LoadPartners();
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -41,16 +38,43 @@ namespace master_pol_enn
 
         private void button1_Click(object sender, EventArgs e)
         {
-            List<string> myList = new List<string>();
-            if (dataGridView1.SelectedRows.Count ==1)
+            if (dataGridView1.SelectedRows.Count > 0)
             {
-                AddEditForm addEditForm = new AddEditForm();
+                AddEditForm addEditForm = new AddEditForm(int.Parse(dataGridView1.SelectedRows[0].Cells[0].Value.ToString()), connectionString, true, this);
                 addEditForm.Show();
-                for(int i = 0;i<7;i++)
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    myList.Add("GGGGG");
+                    string sql = "DELETE FROM Partners WHERE id_partners=" + dataGridView1.SelectedRows[0].Cells[0].Value;
+                    conn.Open();
+                    SqlCommand sqlCommand = new SqlCommand(sql, conn);
+                    sqlCommand.ExecuteNonQuery();
+                    conn.Close();
+                    LoadPartners();
                 }
-                addEditForm.list = myList;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            AddEditForm addEditForm = new AddEditForm(0, connectionString, false, this);
+            addEditForm.Show();
+        }
+        public void LoadPartners()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string sql = "SELECT id_partners,[Наименование партнера], Partners_type.[Тип партнера], Рейтинг, [Юридический адрес партнера], Директор, [Телефон партнера], [Электронная почта партнера] FROM Partners INNER JOIN Partners_type ON Partners.id_partners_type = Partners_type.id_partners_type";
+                adapter = new SqlDataAdapter(sql, conn);
+                ds = new DataSet();
+                adapter.Fill(ds);
+                dataGridView1.DataSource = ds.Tables[0];
             }
         }
     }
