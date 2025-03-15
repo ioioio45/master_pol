@@ -36,11 +36,12 @@
             this.material_type_importTableAdapter = new master_pol_enn.master_pol_ennDataSetTableAdapters.Material_type_importTableAdapter();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button_partners_list = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.master_pol_ennDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.masterpolennDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.materialtypeimportBindingSource)).BeginInit();
@@ -78,6 +79,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button2);
@@ -87,6 +89,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(225, 450);
             this.panel1.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(67, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(77, 77);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
             // button3
             // 
@@ -127,15 +139,15 @@
             this.panel2.Size = new System.Drawing.Size(644, 450);
             this.panel2.TabIndex = 2;
             // 
-            // pictureBox1
+            // button4
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(67, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(77, 77);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
+            this.button4.Location = new System.Drawing.Point(39, 218);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(151, 32);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Расчет материала";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // Form1
             // 
@@ -170,6 +182,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button_partners_list;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button button4;
     }
 }
 

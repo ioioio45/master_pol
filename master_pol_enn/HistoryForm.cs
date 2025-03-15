@@ -31,14 +31,21 @@ namespace master_pol_enn
         }
         private void LoadHistory()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                string sql = "SELECT Products.[Наименование продукции], Partner_products.[Количество продукции], Partner_products.[Дата продажи]\r\nFROM Products INNER JOIN  Partner_products ON Products.id_products = Partner_products.id_products WHERE id_partners="+id;
-                adapter = new SqlDataAdapter(sql, conn);
-                ds = new DataSet();
-                adapter.Fill(ds);
-                dataGridView1.DataSource = ds.Tables[0];
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string sql = "SELECT Products.[Наименование продукции], Partner_products.[Количество продукции], Partner_products.[Дата продажи]\r\nFROM Products INNER JOIN  Partner_products ON Products.id_products = Partner_products.id_products WHERE id_partners=" + id;
+                    adapter = new SqlDataAdapter(sql, conn);
+                    ds = new DataSet();
+                    adapter.Fill(ds);
+                    dataGridView1.DataSource = ds.Tables[0];
+                }
             }
+            catch(SqlException ex){
+                MessageBox.Show(ex.Message.ToString());
+            }
+            
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

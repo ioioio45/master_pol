@@ -87,6 +87,62 @@ namespace master_pol_enn
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if(!int.TryParse(textBox_rating.Text, out int r))
+            {
+                r = -1;
+            }
+            
+            if (!ValidateData(textBox_name.Text, comboBox_partners_type.Text, r,textBox_address.Text, textBox_director.Text, textBox_phone.Text, textBox_email.Text))
+            {
+                SqlInsert();
+            }
+            
+        }
+        private bool ValidateData(string name, string type, int rating, string address, string FIO, string phone, string email)
+        {
+            bool found = false;
+            string alertString="";
+            if(name=="")
+            {
+                alertString += "Некорректное наименование\n";
+                found = true;
+            }
+            if(type == "")
+            {
+                alertString += "Некорректный тип\n";
+                found = true;
+            }
+            if((rating<0 || rating>10))
+            {
+                alertString += "Некорректный рейтинг\n";
+                found = true;
+            }
+            if(address == "")
+            {
+                alertString += "Некорректный адрес\n";
+                found = true;
+            }
+            if (FIO == "")
+            {
+                alertString += "Некорректный адрес\n";
+                found = true;
+            }
+            if (phone == "")
+            {
+                alertString += "Некорректный телефон\n";
+                found = true;
+            }
+            if (email == "")
+            {
+                alertString += "Некорректная почта\n";
+                found = true;
+            }
+            if(found)
+                MessageBox.Show(alertString);
+            return found;
+        }
+        private void SqlInsert()
+        {
             switch (comboBox_partners_type.Text)
             {
                 case "ЗАО": comboNum = 1; break;
@@ -99,7 +155,7 @@ namespace master_pol_enn
                 using (SqlConnection connection = new SqlConnection(connnectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("UPDATE Partners SET [Наименование партнера]='" + textBox_name.Text + "', [Рейтинг]=" + textBox_rating.Text + ", [Юридический адрес партнера]='" + textBox_address.Text + "', Директор='" + textBox_director.Text + "', [Телефон партнера]='" + textBox_phone.Text + "', [Электронная почта партнера]='" + textBox_email.Text + "', id_partners_type='" + comboNum+"' WHERE id_partners="+detectedId, connection);
+                    SqlCommand sqlCommand = new SqlCommand("UPDATE Partners SET [Наименование партнера]='" + textBox_name.Text + "', [Рейтинг]=" + textBox_rating.Text + ", [Юридический адрес партнера]='" + textBox_address.Text + "', Директор='" + textBox_director.Text + "', [Телефон партнера]='" + textBox_phone.Text + "', [Электронная почта партнера]='" + textBox_email.Text + "', id_partners_type='" + comboNum + "' WHERE id_partners=" + detectedId, connection);
                     sqlCommand.ExecuteNonQuery();
                     listOfPartners.LoadPartners();
                     connection.Close();
@@ -110,7 +166,7 @@ namespace master_pol_enn
                 using (SqlConnection connection = new SqlConnection(connnectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("INSERT INTO Partners (id_partners_type, [Наименование партнера],Директор,[Электронная почта партнера],[Телефон партнера],[Юридический адрес партнера],Рейтинг) VALUES (" + comboNum + ",'"+ textBox_name.Text + "','"+ textBox_director.Text + "','"+ textBox_email.Text +"','"+ textBox_phone.Text + "','"+ textBox_address.Text +"','"+ textBox_rating.Text+"')", connection);
+                    SqlCommand sqlCommand = new SqlCommand("INSERT INTO Partners (id_partners_type, [Наименование партнера],Директор,[Электронная почта партнера],[Телефон партнера],[Юридический адрес партнера],Рейтинг) VALUES (" + comboNum + ",'" + textBox_name.Text + "','" + textBox_director.Text + "','" + textBox_email.Text + "','" + textBox_phone.Text + "','" + textBox_address.Text + "','" + textBox_rating.Text + "')", connection);
                     sqlCommand.ExecuteNonQuery();
                     listOfPartners.LoadPartners();
                     connection.Close();

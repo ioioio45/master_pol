@@ -49,14 +49,19 @@ namespace master_pol_enn
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                try
                 {
-                    string sql = "DELETE FROM Partners WHERE id_partners=" + dataGridView1.SelectedRows[0].Cells[0].Value;
-                    conn.Open();
-                    SqlCommand sqlCommand = new SqlCommand(sql, conn);
-                    sqlCommand.ExecuteNonQuery();
-                    conn.Close();
-                    LoadPartners();
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        string sql = "DELETE FROM Partners WHERE id_partners=" + dataGridView1.SelectedRows[0].Cells[0].Value;
+                        conn.Open();
+                        SqlCommand sqlCommand = new SqlCommand(sql, conn);
+                        sqlCommand.ExecuteNonQuery();
+                        conn.Close();
+                        LoadPartners();
+                    }
+                } catch(SqlException ex) {
+                    MessageBox.Show(ex.Message);
                 }
             }
         }

@@ -108,6 +108,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>master_pol_ennDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="MaterialCountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MaterialCountForm.Designer.cs">
+      <DependentUpon>MaterialCountForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Material_type_import.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -154,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ListOfPartners.resx">
       <DependentUpon>ListOfPartners.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MaterialCountForm.resx">
+      <DependentUpon>MaterialCountForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PartnersForm.resx">
       <DependentUpon>PartnersForm.cs</DependentUpon>
