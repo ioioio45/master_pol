@@ -20,10 +20,10 @@ namespace master_pol_enn
         {
             InitializeComponent();
         }
-        public ApplicationsForm(string c)
+        public ApplicationsForm(string connectionString)
         {
             InitializeComponent();
-            connectionString = c;
+            this.connectionString = connectionString;
         }
         public void LoadPartners()
         {

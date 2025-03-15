@@ -21,10 +21,10 @@ namespace master_pol_enn
         {
             InitializeComponent();
         }
-        public ListOfPartners(string cS)
+        public ListOfPartners(string connectionString)
         {
             InitializeComponent();
-            connectionString = cS;
+            this.connectionString = connectionString;
         }
         private void ListOfPartners_Load(object sender, EventArgs e)
         {

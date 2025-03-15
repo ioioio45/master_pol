@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditForm));
             this.label_name = new System.Windows.Forms.Label();
             this.label_partner_type = new System.Windows.Forms.Label();
             this.label_rating = new System.Windows.Forms.Label();
@@ -188,6 +189,7 @@
             this.Controls.Add(this.label_rating);
             this.Controls.Add(this.label_partner_type);
             this.Controls.Add(this.label_name);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddEditForm";
             this.Text = "AddEditForm";
             this.Load += new System.EventHandler(this.AddEditForm_Load);

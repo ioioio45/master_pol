@@ -16,7 +16,7 @@ namespace master_pol_enn
     public partial class Form1 : Form
     {
         
-        string connectionString = "Data Source=DESKTOP-DE\\LAB7PC7;Initial Catalog=master_pol_enn;Integrated Security=True";
+        string connectionString = "Data Source=NURGUN\\EWYANG;Initial Catalog=master_pol_enn;Integrated Security=True";
         PartnersForm partnersForm;
         ListOfPartners listOfPartners;
         ApplicationsForm applicationsForm;
@@ -28,6 +28,9 @@ namespace master_pol_enn
             listOfPartners = new ListOfPartners(connectionString);
             applicationsForm = new ApplicationsForm(connectionString);
             materialCountForm = new MaterialCountForm(connectionString);
+            Font newFont = new Font("Segoe UI", 8);
+            ChangeFontForAllControls(this, newFont);
+            panel1.BackColor = ColorTranslator.FromHtml("#F4E8D3");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -87,6 +90,14 @@ namespace master_pol_enn
             materialCountForm.FormBorderStyle = FormBorderStyle.None;
             panel2.Controls.Add(materialCountForm);
             materialCountForm.Show();
+        }
+        private void ChangeFontForAllControls(Control control, Font newFont)
+        {
+            control.Font = newFont;
+            foreach (Control childControl in control.Controls)
+            {
+                ChangeFontForAllControls(childControl, newFont);
+            }
         }
     }
 }

@@ -22,12 +22,12 @@ namespace master_pol_enn
         {
             InitializeComponent();
         }
-        public HistoryForm(int detectedId, string c, ApplicationsForm a)
+        public HistoryForm(int id, string connectionString, ApplicationsForm applicationsForm)
         {
             InitializeComponent();
-            id = detectedId;
-            connectionString = c;
-            applicationsForm = a;
+            this.id = id;
+            this.connectionString = connectionString;
+            this.applicationsForm = applicationsForm;
         }
         private void LoadHistory()
         {

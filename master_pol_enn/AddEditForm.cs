@@ -17,7 +17,7 @@ namespace master_pol_enn
         public SqlDataAdapter adapter;
         public DataSet ds;
         public int detectedId = 0;
-        public string connnectionString;
+        public string connectionString;
         public bool isRedacting;
         public List<string> comboBoxData = new List<string>();
         public int comboNum;
@@ -26,13 +26,13 @@ namespace master_pol_enn
         {
             InitializeComponent();
         }
-        public AddEditForm(int id, string con, bool e, ListOfPartners l)
+        public AddEditForm(int detectedId, string connectionString, bool isRedacting, ListOfPartners listOfPartners)
         {
             InitializeComponent();
-            detectedId = id;
-            connnectionString = con;
-            isRedacting = e;
-            listOfPartners = l;
+            this.detectedId = detectedId;
+            this.connectionString = connectionString;
+            this.isRedacting = isRedacting;
+            this.listOfPartners = listOfPartners;
         }
 
         private void AddEditForm_Load(object sender, EventArgs e)
@@ -48,29 +48,41 @@ namespace master_pol_enn
                 {
                     button1.Text = "Добавить";
                 }
-                using (SqlConnection connection = new SqlConnection(connnectionString))
+                try
                 {
-                    string sql = "SELECT [Наименование партнера], [Рейтинг], [Юридический адрес партнера], Директор, [Телефон партнера], [Электронная почта партнера], [Тип партнера] FROM Partners INNER JOIN Partners_type ON Partners.id_partners_type = Partners_type.id_partners_type WHERE Partners.id_partners=" + detectedId;
 
-                    adapter = new SqlDataAdapter(sql, connection);
-                    ds = new DataSet();
-                    adapter.Fill(ds);
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        string sql = "SELECT [Наименование партнера], [Рейтинг], [Юридический адрес партнера], Директор, [Телефон партнера], [Электронная почта партнера], [Тип партнера] FROM Partners INNER JOIN Partners_type ON Partners.id_partners_type = Partners_type.id_partners_type WHERE Partners.id_partners=" + detectedId;
+                        SqlCommand cmd = new SqlCommand(sql, connection);
+                        connection.Open();
 
-                    textBox_name.Text = ds.Tables[0].Rows[0][0].ToString();
-                    textBox_rating.Text = ds.Tables[0].Rows[0][1].ToString();
-                    textBox_address.Text = ds.Tables[0].Rows[0][2].ToString();
-                    textBox_director.Text = ds.Tables[0].Rows[0][3].ToString();
-                    textBox_phone.Text = ds.Tables[0].Rows[0][4].ToString();
-                    textBox_email.Text = ds.Tables[0].Rows[0][5].ToString();
-                    comboBox_partners_type.SelectedItem = ds.Tables[0].Rows[0][6].ToString();
-                    comboBox_partners_type.Text = ds.Tables[0].Rows[0][6].ToString();
+                        using (SqlDataReader dataReader = cmd.ExecuteReader())
+                        {
+                            if(dataReader.Read())
+                            {
+                                textBox_name.Text = dataReader["Наименование партнера"].ToString();
+                                textBox_rating.Text = dataReader["Рейтинг"].ToString();
+                                textBox_address.Text = dataReader["Юридический адрес партнера"].ToString();
+                                textBox_director.Text = dataReader["Директор"].ToString();
+                                textBox_phone.Text = dataReader["Телефон партнера"].ToString();
+                                textBox_email.Text = dataReader["Электронная почта партнера"].ToString();
+                                comboBox_partners_type.SelectedItem = dataReader["Тип партнера"].ToString();
+                                comboBox_partners_type.Text = dataReader["Тип партнера"].ToString();
+                            }
+                        }
+                        connection.Close();
+                    }
+                }
+                catch(SqlException ex) {
+                    MessageBox.Show(ex.ToString());
                 }
             }
 
         }
         private void LoadPartnersData()
         {
-            using (SqlConnection connection = new SqlConnection(connnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string sqlTypes = "SELECT [Тип партнера] FROM Partners_type";
                 adapter = new SqlDataAdapter(sqlTypes, connection);
@@ -152,7 +164,7 @@ namespace master_pol_enn
             }
             if (isRedacting)
             {
-                using (SqlConnection connection = new SqlConnection(connnectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
                     SqlCommand sqlCommand = new SqlCommand("UPDATE Partners SET [Наименование партнера]='" + textBox_name.Text + "', [Рейтинг]=" + textBox_rating.Text + ", [Юридический адрес партнера]='" + textBox_address.Text + "', Директор='" + textBox_director.Text + "', [Телефон партнера]='" + textBox_phone.Text + "', [Электронная почта партнера]='" + textBox_email.Text + "', id_partners_type='" + comboNum + "' WHERE id_partners=" + detectedId, connection);
@@ -163,7 +175,7 @@ namespace master_pol_enn
             }
             else
             {
-                using (SqlConnection connection = new SqlConnection(connnectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
                     SqlCommand sqlCommand = new SqlCommand("INSERT INTO Partners (id_partners_type, [Наименование партнера],Директор,[Электронная почта партнера],[Телефон партнера],[Юридический адрес партнера],Рейтинг) VALUES (" + comboNum + ",'" + textBox_name.Text + "','" + textBox_director.Text + "','" + textBox_email.Text + "','" + textBox_phone.Text + "','" + textBox_address.Text + "','" + textBox_rating.Text + "')", connection);

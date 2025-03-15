@@ -22,10 +22,10 @@ namespace master_pol_enn
         {
             InitializeComponent();
         }
-        public MaterialCountForm(string c)
+        public MaterialCountForm(string connectionString)
         {
             InitializeComponent();
-            connectionString = c;
+            this.connectionString = connectionString;
         }
         private void LoadComboBoxes()
         {
@@ -34,12 +34,18 @@ namespace master_pol_enn
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
                     string materialTypeComboSql = "SELECT [Наименование продукции] FROM Products";
-                    adapter = new SqlDataAdapter(materialTypeComboSql, sqlConnection);
-                    ds = new DataSet();
-                    adapter.Fill(ds);
-                }
-                foreach(DataRow row in ds.Tables[0].Rows) {
-                    comboBoxData.Add(row[0].ToString());
+                    using (SqlCommand command = new SqlCommand(materialTypeComboSql, sqlConnection))
+                    {
+                        sqlConnection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            comboBoxData.Clear();
+                            while (reader.Read())
+                            {
+                                comboBoxData.Add(reader["Наименование продукции"].ToString());
+                            }
+                        }
+                    }
                 }
                 comboBox1.DataSource = comboBoxData;
             }
@@ -55,9 +61,9 @@ namespace master_pol_enn
                 return -1;
             }
 
-            double baseMaterial = count / coefficient;
+            double baseMaterial = count * coefficient;
 
-            double totalMaterial = baseMaterial * (1 + brokeCoefficient / 100.0);
+            double totalMaterial = baseMaterial * (1 + brokeCoefficient);
 
             return (int)Math.Round(totalMaterial);
         }
