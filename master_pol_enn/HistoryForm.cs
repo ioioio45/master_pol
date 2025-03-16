@@ -16,6 +16,7 @@ namespace master_pol_enn
     {
         int id;
         string connectionString;
+        ApplicationsForm applicationsForm;
         SqlDataAdapter adapter;
         DataSet ds;
         public HistoryForm()
