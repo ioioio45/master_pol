@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -15,7 +16,6 @@ namespace master_pol_enn
     {
         int id;
         string connectionString;
-        ApplicationsForm applicationsForm;
         SqlDataAdapter adapter;
         DataSet ds;
         public HistoryForm()
